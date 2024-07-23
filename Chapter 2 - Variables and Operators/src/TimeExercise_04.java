@@ -1,4 +1,4 @@
-public class TimeExercise {
+public class TimeExercise_04 {
 
     public static void main(String[] args) {
         int hour = 10;
