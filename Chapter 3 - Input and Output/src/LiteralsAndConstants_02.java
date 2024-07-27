@@ -11,7 +11,7 @@ public class LiteralsAndConstants_02 {
 		inch = in.nextInt();
 
 		final double CM_PER_INCH = 2.54;
-		
+
 		cm = inch * CM_PER_INCH;
 		System.out.print(inch + " in = ");
 		System.out.print(cm + " cm");
