@@ -1,24 +1,21 @@
 public class TimeExercise_04 {
 
-    public static void main(String[] args) {
-        // Current time
-        int hour = 10;
-        int minute = 25;
-        int second = 47;
+	public static void main(String[] args) {
 
-        // Calculate the number of seconds since midnight
-        int midnightSeconds = (hour * 3600) + (minute * 60) + second;
-        System.out.println("Time since midnight: " + midnightSeconds + " seconds");
+		int hour = 10;
+		int minute = 25;
+		int second = 47;
 
-        // Total number of seconds in a day
-        int dailySeconds = 86400;
+		int midnightSeconds = (hour * 3600) + (minute * 60) + second;
+		System.out.println("Time since midnight: " + midnightSeconds + " seconds");
 
-        // Calculate the number of seconds remaining in the day
-        int secondsRemaining = dailySeconds - midnightSeconds;
-        System.out.println("Seconds remaining in the day: " + secondsRemaining + " seconds");
+		int dailySeconds = 86400;
 
-        // Calculate the percentage of the day that has passed
-        double dayPercentage = ((double) midnightSeconds / dailySeconds) * 100;
-        System.out.println("Percentage of day that has passed: " + String.format("%.2f", dayPercentage) + "%");
-    }
+		int secondsRemaining = dailySeconds - midnightSeconds;
+		System.out.println("Seconds remaining in the day: " + secondsRemaining + " seconds");
+
+		double dayPercentage = ((double) midnightSeconds / dailySeconds) * 100;
+		System.out.println("Percentage of day that has passed: " + String.format("%.2f", dayPercentage) + "%");
+
+	}
 }

@@ -13,7 +13,7 @@ public class Variables_01 {
 		// long: 64-bit signed integer, range: -2^63 to 2^63-1
 		long longVar = 12345678L;
 
-		// float: 32-bit floating point, range: approximately. ±1.4e-45 to ±3.4e38
+		// float: 32-bit floating point, range: approximately. ±1.4e-45 to ±3.4e38w
 		float floatVar = 1234f;
 
 		// double: 64-bit floating point, range: approximately. ±4.9e-324 to ±1.8e308

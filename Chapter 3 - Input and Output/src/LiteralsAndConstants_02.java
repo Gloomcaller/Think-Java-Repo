@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class LiteralsAndConstants_02 {
 
 	public static void main(String[] args) {
+
 		int inch;
 		double cm;
 		Scanner in = new Scanner(System.in);
