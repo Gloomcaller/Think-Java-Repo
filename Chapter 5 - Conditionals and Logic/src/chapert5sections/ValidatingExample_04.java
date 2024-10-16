@@ -1,3 +1,4 @@
+package chapert5sections;
 import java.util.Scanner;
 
 // Demonstrates input validation using if statements and adds extra features.

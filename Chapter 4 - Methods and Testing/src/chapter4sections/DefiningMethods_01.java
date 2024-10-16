@@ -1,3 +1,4 @@
+package chapter4sections;
 public class DefiningMethods_01 {
 
 	public static void newLine() {

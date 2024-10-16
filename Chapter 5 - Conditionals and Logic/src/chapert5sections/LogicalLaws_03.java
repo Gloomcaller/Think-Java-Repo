@@ -1,3 +1,4 @@
+package chapert5sections;
 
 public class LogicalLaws_03 {
 

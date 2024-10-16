@@ -1,3 +1,4 @@
+package chapter3sections;
 import java.util.Scanner;
 
 public class Converter_03 {

@@ -1,3 +1,4 @@
+package chapter1sections;
 
 public class EscapeSequence_02 {
 

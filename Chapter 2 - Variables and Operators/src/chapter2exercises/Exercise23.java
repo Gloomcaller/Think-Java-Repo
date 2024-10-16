@@ -1,4 +1,5 @@
-public class TimeExercise_04 {
+package chapter2exercises;
+public class Exercise23 {
 
 	public static void main(String[] args) {
 

@@ -1,3 +1,4 @@
+package chapter2sections;
 public class Variables_01 {
 
 	public static void main(String[] args) {

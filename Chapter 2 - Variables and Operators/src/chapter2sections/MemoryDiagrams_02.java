@@ -1,3 +1,4 @@
+package chapter2sections;
 public class MemoryDiagrams_02 {
 
 	public static void main(String[] args) {
