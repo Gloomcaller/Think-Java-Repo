@@ -1,4 +1,5 @@
 package chapter5exercises;
+
 import java.util.Random;
 import java.util.Scanner;
 
