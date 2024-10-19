@@ -15,7 +15,7 @@ public class Exercise53 {
 		System.out.println("Enter the number for C : ");
 		double numberC = in.nextDouble();
 
-		double abcResoult = Math.pow(numberA, numberC) + Math.pow(numberA, numberN);
+		double abcResoult = Math.pow(numberA, numberN) + Math.pow(numberB, numberN);
 		if (numberN > 2 && (Math.pow(numberC, numberN) == abcResoult)) {
 			System.out.println("Holy smokes, Fermat was wrong!");
 		} else {
