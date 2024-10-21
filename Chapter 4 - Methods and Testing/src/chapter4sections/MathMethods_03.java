@@ -19,7 +19,7 @@ public class MathMethods_03 {
 		double xCos = Math.cos(angle + Math.PI / 2.0);
 
 		double xExponential = Math.exp(Math.log(10.0));
-		
+
 		double xPower = Math.pow(2.0, 10.0);
 	}
 

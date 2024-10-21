@@ -21,6 +21,7 @@ public class Exercise53 {
 		} else {
 			System.out.println("No, that doesn’t work.");
 		}
+		in.close();
 	}
 
 }

@@ -1,4 +1,5 @@
 package chapter3exercises;
+
 import java.util.Scanner;
 import java.util.Random;
 
@@ -19,5 +20,6 @@ public class Exercise34 {
 
 		int difference = Math.abs(numberToGuess - userGuess);
 		System.out.println("You were off by: " + difference);
+		in.close();
 	}
 }

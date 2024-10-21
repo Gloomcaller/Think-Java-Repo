@@ -38,5 +38,6 @@ public class SubstringComparison_05 {
 		} else {
 			System.out.println("The names are identical.");
 		}
+		in.close();
 	}
 }

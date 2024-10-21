@@ -1,4 +1,5 @@
 package chapter3sections;
+
 import java.util.Scanner;
 
 public class LiteralsAndConstants_02 {
@@ -17,7 +18,8 @@ public class LiteralsAndConstants_02 {
 		cm = inch * CM_PER_INCH;
 		System.out.print(inch + " in = ");
 		System.out.print(cm + " cm");
-
+		
+		in.close();
 	}
 
 }

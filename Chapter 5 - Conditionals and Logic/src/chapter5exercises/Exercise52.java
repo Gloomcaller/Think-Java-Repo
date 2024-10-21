@@ -39,7 +39,7 @@ public class Exercise52 {
 			System.out.println(
 					"Sorry, you've used all your attempts. The number I was thinking of was: " + numberToGuess);
 		}
-
+		in.close();
 	}
 
 }
