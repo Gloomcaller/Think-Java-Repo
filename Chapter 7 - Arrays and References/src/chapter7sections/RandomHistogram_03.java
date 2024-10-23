@@ -2,7 +2,7 @@ package chapter7sections;
 
 import java.util.Random;
 
-public class RandomHisogram_03 {
+public class RandomHistogram_03 {
 
 	public static int[] randomArray(int size) {
 		Random random = new Random();
