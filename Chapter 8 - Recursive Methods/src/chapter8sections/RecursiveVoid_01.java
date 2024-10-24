@@ -1,6 +1,6 @@
 package chapter8sections;
 
-public class RecursiveVoid {
+public class RecursiveVoid_01 {
 
 	public static void countdown(int n) {
 		if (n == 0) {
