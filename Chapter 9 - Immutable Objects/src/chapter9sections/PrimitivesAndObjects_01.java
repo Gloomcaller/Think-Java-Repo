@@ -1,6 +1,6 @@
 package chapter9sections;
 
-public class PrimitivesAndObjects {
+public class PrimitivesAndObjects_01 {
 
 	public static void main(String[] args) {
 

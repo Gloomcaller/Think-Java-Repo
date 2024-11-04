@@ -1,6 +1,6 @@
 package chapter9sections;
 
-public class DesignGeneralization {
+public class DesignGeneralization_03 {
 
 	public static void main(String[] args) {
 
