@@ -30,6 +30,6 @@ public class PointObjectParameters_01 {
 		int dy = p2.y - p1.y;
 		return Math.sqrt(dx * dx + dy * dy);
 		
-		//test
+		//te
 	}
 }
