@@ -18,6 +18,14 @@ public class MutableRectangles_02 {
 
 		moveRect(box, 50, 100);
 		System.out.println("Rectangle after moveRect : " + box);
+
+		Rectangle box1 = new Rectangle(0, 0, 100, 200);
+		Rectangle box2 = box1;
+
+		box1.grow(50, 50);
+
+		System.out.println("box1 after grow by 50,50 : " + box1);
+		System.out.println("box2 after box1 grow : " + box2);
 	}
 
 	public static Point findCenter(Rectangle box) {
