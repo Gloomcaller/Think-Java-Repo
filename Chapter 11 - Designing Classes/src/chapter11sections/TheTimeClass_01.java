@@ -42,14 +42,23 @@ public class TheTimeClass_01 {
 		public void setSecond(double second) {
 			this.second = second;
 		}
+
+		@Override
+		public String toString() {
+			return String.format("%02d:%02d:%04.1f", hour, minute, second);
+		}
+	}
+
+	public static void printTime(Time t) {
+		System.out.println(t.toString());
 	}
 
 	public static void main(String[] args) {
 		Time time1 = new Time();
 		Time time2 = new Time(11, 59, 59.9);
 
-		System.out.println("Time 1: " + time1.hour + ":" + time1.minute + ":" + time1.second);
-		System.out.println("Time 2: " + time2.hour + ":" + time2.minute + ":" + time2.second);
+		System.out.println("Time 1: " + time1);
+		System.out.println("Time 2: " + time2);
 
 		time1.setHour(12);
 		time1.setMinute(30);
@@ -59,7 +68,11 @@ public class TheTimeClass_01 {
 		time2.setMinute(15);
 		time2.setSecond(30.0);
 
-		System.out.println("Updated Time 1: " + time1.getHour() + ":" + time1.getMinute() + ":" + time1.getSecond());
-		System.out.println("Updated Time 2: " + time2.getHour() + ":" + time2.getMinute() + ":" + time2.getSecond());
+		System.out.println("Updated Time 1: " + time1);
+		System.out.println("Updated Time 2: " + time2);
+
+		System.out.print("Print using printTime method: ");
+		printTime(time1);
+		printTime(time2);
 	}
 }
