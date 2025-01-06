@@ -10,7 +10,7 @@ public class Exercise113 {
 		public Date() {
 			this.year = 2000;
 			this.month = 1;
-			this.day = 1;F
+			this.day = 1;
 		}
 
 		public Date(int year, int month, int day) {
