@@ -17,7 +17,7 @@ public class Exercise114 {
 		}
 
 		public static void printRational(Rational rat) {
-			System.out.println("Numerator: " + rat.numerator + " Demonimator: " + rat.denominator);
+			System.out.println(rat.numerator + "/" + rat.denominator);
 		}
 
 		public static String toString(Rational rat) {
@@ -38,9 +38,22 @@ public class Exercise114 {
 			return (double) rat.numerator / rat.denominator;
 		}
 
-		public void reduce() {
-
+		public Rational reduce() {
+			int gcd = gcd(this.numerator, this.denominator);
+			int reducedNumerator = this.numerator / gcd;
+			int reducedDenominator = this.denominator / gcd;
+			return new Rational(reducedNumerator, reducedDenominator);
 		}
+
+		private int gcd(int a, int b) {
+			while (b != 0) {
+				int temp = b;
+				b = a % b;
+				a = temp;
+			}
+			return a;
+		}
+
 	}
 
 	public static void main(String[] args) {
@@ -56,6 +69,10 @@ public class Exercise114 {
 		double rat1D = Rational.toDouble(rat1);
 		System.out.println(rat1D);
 
+		Rational rat2 = new Rational(8, 12);
+		Rational reducedRat = rat2.reduce();
+		System.out.println("Original: " + rat2.numerator + "/" + rat2.denominator);
+		System.out.println("Reduced: " + reducedRat.numerator + "/" + reducedRat.denominator);
 	}
 
 }
