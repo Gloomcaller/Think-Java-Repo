@@ -2,6 +2,8 @@ package chapter13sections;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
+import java.util.random.RandomGenerator;
 
 public class Deck_01 {
 
@@ -114,19 +116,23 @@ public class Deck_01 {
 		}
 
 		public void shuffle() {
-			for each index i {
-			// choose a random number between i and length - 1
-			// swap the ith card and the randomly-chosen card
+			for (int i = cards.length - 1; i > 0; i--) {
+				int randomIndex = (int) (Math.random() * (i + 1));
+				Card temp = cards[i];
+				cards[i] = cards[randomIndex];
+				cards[randomIndex] = temp;
 			}
-			}
+		}
 
 		private static int randomInt(int low, int high) {
-			// return a random number between low and high,
-			// including both
+			Random random = new Random();
+			return random.nextInt(high - low + 1) + low;
 		}
 
 		private void swapCards(int i, int j) {
-			// swap the ith and the jth cards in the array
+			Card temp = this.cards[j];
+			this.cards[j] = this.cards[i];
+			this.cards[i] = temp;
 		}
 
 		public void selectionSort() {
@@ -137,6 +143,12 @@ public class Deck_01 {
 			}
 
 		private int indexLowest(int low, int high) {
+			for (int i = 0; i < (high - low); i++) {
+				if (this.card[i].compareTo(this.card[i + 1]) = 1) {
+
+				}
+			}
+
 			// find the lowest card between low and high
 		}
 
@@ -188,11 +200,11 @@ public class Deck_01 {
 		}
 
 		public Card popCard() {
-			return this.cards.remove(0); // from the top of the pile
+			return this.cards.remove(0);
 		}
 
 		public void addCard(Card card) {
-			this.cards.add(card); // to the bottom of the pile
+			this.cards.add(card);
 		}
 
 		public boolean isEmpty() {
@@ -210,12 +222,12 @@ public class Deck_01 {
 	public static void main(String[] args) {
 		Deck deck = new Deck();
 		deck.shuffle();
-		
+
 		Pile p1 = new Pile();
 		p1.addDeck(deck.subdeck(0, 25));
 		Pile p2 = new Pile();
 		p2.addDeck(deck.subdeck(26, 51));
-		
+
 		while (!p1.isEmpty() && !p2.isEmpty()) {
 			// pop a card from each pile
 			Card c1 = p1.popCard();
@@ -223,19 +235,19 @@ public class Deck_01 {
 			// compare the cards
 			int diff = c1.getRank() - c2.getRank();
 			if (diff > 0) {
-			p1.addCard(c1);
-			p1.addCard(c2);
+				p1.addCard(c1);
+				p1.addCard(c2);
 			} else if (diff < 0) {
-			p2.addCard(c1);
-			p2.addCard(c2);
+				p2.addCard(c1);
+				p2.addCard(c2);
 			} else {
-			// it's a tie
+				// it's a tie
 			}
 			if (p2.isEmpty()) {
 				System.out.println("Player 1 wins!");
-				} else {
+			} else {
 				System.out.println("Player 2 wins!");
-				}
+			}
+		}
 	}
-
 }
