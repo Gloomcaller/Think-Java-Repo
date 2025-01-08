@@ -1,5 +1,6 @@
 package chapter13sections;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Deck_01 {
@@ -111,30 +112,130 @@ public class Deck_01 {
 				System.out.println(card);
 			}
 		}
+
+		public void shuffle() {
+			for each index i {
+			// choose a random number between i and length - 1
+			// swap the ith card and the randomly-chosen card
+			}
+			}
+
+		private static int randomInt(int low, int high) {
+			// return a random number between low and high,
+			// including both
+		}
+
+		private void swapCards(int i, int j) {
+			// swap the ith and the jth cards in the array
+		}
+
+		public void selectionSort() {
+			for each index i {
+			// find the lowest card at or to the right of i
+			// swap the ith card and the lowest card found
+			}
+			}
+
+		private int indexLowest(int low, int high) {
+			// find the lowest card between low and high
+		}
+
+		public Deck subdeck(int low, int high) {
+			Deck sub = new Deck(high - low + 1);
+			for (int i = 0; i < sub.cards.length; i++) {
+				sub.cards[i] = this.cards[low + i];
+			}
+			return sub;
+		}
+
+		private static Deck merge(Deck d1, Deck d2) {
+			// create a new deck, d3, big enough for all the cards
+			// use the index i to keep track of where we are at in
+			// the first deck, and the index j for the second deck
+			int i = 0;
+			int j = 0;
+			// the index k traverses the result deck
+			for (int k = 0; k < d3.length; k++) {
+				// if d1 is empty, use top card from d2
+				// if d2 is empty, use top card from d1
+				// otherwise, compare the top two cards
+				// add lowest card to the new deck at k
+				// increment i or j (depending on card)
+			}
+			// return the new deck
+		}
+
+		public Deck almostMergeSort() {
+			// divide the deck into two subdecks
+			// sort the subdecks using selectionSort
+			// merge the subdecks, return the result
+		}
+
+		public Deck mergeSort() {
+			// if the deck has 0 or 1 cards, return it
+			// otherwise, divide the deck into two subdecks
+			// sort the subdecks using mergeSort
+			// merge the subdecks
+			// return the result
+		}
 	}
 
-	public static void main(String[] args) {
-		Card threeOfClubs = new Card(3, 0);
+	public class Pile {
+		private ArrayList<Card> cards;
 
-		Card card1 = new Card(11, 1);
-		System.out.println(card1);
+		public Pile() {
+			this.cards = new ArrayList<Card>();
+		}
 
-		Card[] cards = new Card[52];
-		int index = 0;
-		for (int suit = 0; suit <= 3; suit++) {
-			for (int rank = 1; rank <= 13; rank++) {
-				cards[index] = new Card(rank, suit);
-				index++;
+		public Card popCard() {
+			return this.cards.remove(0); // from the top of the pile
+		}
+
+		public void addCard(Card card) {
+			this.cards.add(card); // to the bottom of the pile
+		}
+
+		public boolean isEmpty() {
+			return this.cards.isEmpty();
+		}
+
+		public void addDeck(Deck deck) {
+			for (Card card : deck.getCards()) {
+				this.cards.add(card);
 			}
 		}
 
-		System.out.println(Arrays.toString(cards));
+	}
 
-		Card card2 = new Card(11, 0);
-		System.out.println(Card.binarySearch(cards, card2));
-
+	public static void main(String[] args) {
 		Deck deck = new Deck();
-		deck.print();
+		deck.shuffle();
+		
+		Pile p1 = new Pile();
+		p1.addDeck(deck.subdeck(0, 25));
+		Pile p2 = new Pile();
+		p2.addDeck(deck.subdeck(26, 51));
+		
+		while (!p1.isEmpty() && !p2.isEmpty()) {
+			// pop a card from each pile
+			Card c1 = p1.popCard();
+			Card c2 = p2.popCard();
+			// compare the cards
+			int diff = c1.getRank() - c2.getRank();
+			if (diff > 0) {
+			p1.addCard(c1);
+			p1.addCard(c2);
+			} else if (diff < 0) {
+			p2.addCard(c1);
+			p2.addCard(c2);
+			} else {
+			// it's a tie
+			}
+			if (p2.isEmpty()) {
+				System.out.println("Player 1 wins!");
+				} else {
+				System.out.println("Player 2 wins!");
+				}
 	}
 
 }
