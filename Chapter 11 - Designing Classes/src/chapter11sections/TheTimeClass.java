@@ -1,6 +1,6 @@
 package chapter11sections;
 
-public class TheTimeClass_01 {
+public class TheTimeClass {
 
 	public static class Time {
 		private int hour;

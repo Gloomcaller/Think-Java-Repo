@@ -2,7 +2,7 @@ package chapter12sections;
 
 import java.util.Arrays;
 
-public class Cards_01 {
+public class Cards {
 
 	public static class Card {
 		private final int rank;
