@@ -76,4 +76,5 @@ public class CardCollection {
 		int n = cards.size();
 		deal(that, n);
 	}
+
 }
