@@ -32,7 +32,13 @@ public class Deck_01 {
 			return ret;
 		}
 
-		public boolean equals(Card that) {
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null || getClass() != obj.getClass())
+				return false;
+			Card that = (Card) obj;
 			return this.rank == that.rank && this.suit == that.suit;
 		}
 
@@ -136,7 +142,7 @@ public class Deck_01 {
 		public void selectionSort() {
 			for (int i = 0; i < this.cards.length - 1; i++) {
 				int min = i;
-				for (int j = 0; j < this.cards.length; j++) {
+				for (int j = i + 1; j < this.cards.length; j++) {
 					if (this.cards[j].compareTo(this.cards[min]) < 0) {
 						min = j;
 					}
@@ -190,52 +196,58 @@ public class Deck_01 {
 					}
 				}
 			}
-
 			return d3;
 		}
 
+		public Deck almostMergeSort() {
+			int mid = this.cards.length / 2;
+			Deck subdeck1 = this.subdeck(0, mid - 1);
+			Deck subdeck2 = this.subdeck(mid, this.cards.length - 1);
+
+			subdeck1.selectionSort();
+			subdeck2.selectionSort();
+
+			return merge(subdeck1, subdeck2);
+		}
+
+		public Deck mergeSort() {
+			if (this.cards.length <= 1) {
+				return this;
+			}
+
+			int mid = this.cards.length / 2;
+			Deck subdeck1 = this.subdeck(0, mid - 1).mergeSort();
+			Deck subdeck2 = this.subdeck(mid, this.cards.length - 1).mergeSort();
+
+			return merge(subdeck1, subdeck2);
+		}
+
 	}
 
-	public Deck almostMergeSort() {
-		// divide the deck into two subdecks
-		// sort the subdecks using selectionSort
-		// merge the subdecks, return the result
-	}
+	public static class Pile {
+		private ArrayList<Card> cards;
 
-	public Deck mergeSort() {
-		// if the deck has 0 or 1 cards, return it
-		// otherwise, divide the deck into two subdecks
-		// sort the subdecks using mergeSort
-		// merge the subdecks
-		// return the result
-	}
-}
+		public Pile() {
+			this.cards = new ArrayList<Card>();
+		}
 
-public class Pile {
-	private ArrayList<Card> cards;
+		public Card popCard() {
+			return this.cards.remove(0);
+		}
 
-	public Pile() {
-		this.cards = new ArrayList<Card>();
-	}
-
-	public Card popCard() {
-		return this.cards.remove(0);
-	}
-
-	public void addCard(Card card) {
-		this.cards.add(card);
-	}
-
-	public boolean isEmpty() {
-		return this.cards.isEmpty();
-	}
-
-	public void addDeck(Deck deck) {
-		for (Card card : deck.getCards()) {
+		public void addCard(Card card) {
 			this.cards.add(card);
 		}
-	}
 
+		public boolean isEmpty() {
+			return this.cards.isEmpty();
+		}
+
+		public void addDeck(Deck deck) {
+			for (Card card : deck.getCards()) {
+				this.cards.add(card);
+			}
+		}
 	}
 
 	public static void main(String[] args) {
@@ -248,10 +260,9 @@ public class Pile {
 		p2.addDeck(deck.subdeck(26, 51));
 
 		while (!p1.isEmpty() && !p2.isEmpty()) {
-			// pop a card from each pile
 			Card c1 = p1.popCard();
 			Card c2 = p2.popCard();
-			// compare the cards
+
 			int diff = c1.getRank() - c2.getRank();
 			if (diff > 0) {
 				p1.addCard(c1);
@@ -260,13 +271,55 @@ public class Pile {
 				p2.addCard(c1);
 				p2.addCard(c2);
 			} else {
-				// it's a tie
+				ArrayList<Card> tieCards = new ArrayList<>();
+				tieCards.add(c1);
+				tieCards.add(c2);
+
+				for (int i = 0; i < 3; i++) {
+					if (!p1.isEmpty())
+						tieCards.add(p1.popCard());
+					if (!p2.isEmpty())
+						tieCards.add(p2.popCard());
+				}
+
+				if (!p1.isEmpty() && !p2.isEmpty()) {
+					Card tiebreaker1 = p1.popCard();
+					Card tiebreaker2 = p2.popCard();
+					tieCards.add(tiebreaker1);
+					tieCards.add(tiebreaker2);
+
+					int tiebreakDiff = tiebreaker1.getRank() - tiebreaker2.getRank();
+					if (tiebreakDiff > 0) {
+						for (Card card : tieCards) {
+							p1.addCard(card);
+						}
+					} else if (tiebreakDiff < 0) {
+						for (Card card : tieCards) {
+							p2.addCard(card);
+						}
+					} else {
+						for (Card card : tieCards) {
+							p1.addCard(card);
+							p2.addCard(card);
+						}
+					}
+				} else {
+					if (p1.isEmpty()) {
+						System.out.println("Player 2 wins the game!");
+						return;
+					}
+					if (p2.isEmpty()) {
+						System.out.println("Player 1 wins the game!");
+						return;
+					}
+				}
 			}
-			if (p2.isEmpty()) {
-				System.out.println("Player 1 wins!");
-			} else {
-				System.out.println("Player 2 wins!");
-			}
+		}
+
+		if (p2.isEmpty()) {
+			System.out.println("Player 1 wins the game!");
+		} else {
+			System.out.println("Player 2 wins the game!");
 		}
 	}
 }
