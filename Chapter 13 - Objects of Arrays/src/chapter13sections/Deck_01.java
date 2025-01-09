@@ -54,7 +54,7 @@ public class Deck_01 {
 
 		public static void printDeck(Card[] cards) {
 			for (Card card : cards) {
-				System.out.println(card);
+				System.out.println(card.toString());
 			}
 		}
 
@@ -111,16 +111,14 @@ public class Deck_01 {
 
 		public void print() {
 			for (Card card : this.cards) {
-				System.out.println(card);
+				System.out.println(card.toString());
 			}
 		}
 
 		public void shuffle() {
 			for (int i = cards.length - 1; i > 0; i--) {
 				int randomIndex = (int) (Math.random() * (i + 1));
-				Card temp = cards[i];
-				cards[i] = cards[randomIndex];
-				cards[randomIndex] = temp;
+				this.swapCards(i, randomIndex);
 			}
 		}
 
@@ -136,20 +134,25 @@ public class Deck_01 {
 		}
 
 		public void selectionSort() {
-			for each index i {
-			// find the lowest card at or to the right of i
-			// swap the ith card and the lowest card found
+			for (int i = 0; i < this.cards.length - 1; i++) {
+				int min = i;
+				for (int j = 0; j < this.cards.length; j++) {
+					if (this.cards[j].compareTo(this.cards[min]) < 0) {
+						min = j;
+					}
+				}
+				this.swapCards(i, min);
 			}
-			}
+		}
 
 		private int indexLowest(int low, int high) {
-			for (int i = 0; i < (high - low); i++) {
-				if (this.card[i].compareTo(this.card[i + 1]) = 1) {
-
+			int lowest = low;
+			for (int i = low + 1; i <= high; i++) {
+				if (this.cards[lowest].compareTo(this.cards[i]) > 0) {
+					lowest = i;
 				}
 			}
-
-			// find the lowest card between low and high
+			return lowest;
 		}
 
 		public Deck subdeck(int low, int high) {
@@ -161,61 +164,77 @@ public class Deck_01 {
 		}
 
 		private static Deck merge(Deck d1, Deck d2) {
-			// create a new deck, d3, big enough for all the cards
-			// use the index i to keep track of where we are at in
-			// the first deck, and the index j for the second deck
-			int i = 0;
-			int j = 0;
-			// the index k traverses the result deck
-			for (int k = 0; k < d3.length; k++) {
-				// if d1 is empty, use top card from d2
-				// if d2 is empty, use top card from d1
-				// otherwise, compare the top two cards
-				// add lowest card to the new deck at k
-				// increment i or j (depending on card)
+			Deck d3 = new Deck(d1.cards.length + d2.cards.length);
+			int i = 0, j = 0, k;
+
+			for (k = 0; k < d3.cards.length; k++) {
+				if (i >= d1.cards.length) {
+					d3.cards[k] = d2.cards[j];
+					j++;
+				} else if (j >= d2.cards.length) {
+					d3.cards[k] = d1.cards[i];
+					i++;
+				} else {
+					if (d1.cards[i].compareTo(d2.cards[j]) < 0) {
+						d3.cards[k] = d1.cards[i];
+						i++;
+					} else if (d1.cards[i].compareTo(d2.cards[j]) > 0) {
+						d3.cards[k] = d2.cards[j];
+						j++;
+					} else {
+						d3.cards[k] = d1.cards[i];
+						i++;
+						k++;
+						d3.cards[k] = d2.cards[j];
+						j++;
+					}
+				}
 			}
-			// return the new deck
+
+			return d3;
 		}
 
-		public Deck almostMergeSort() {
-			// divide the deck into two subdecks
-			// sort the subdecks using selectionSort
-			// merge the subdecks, return the result
-		}
-
-		public Deck mergeSort() {
-			// if the deck has 0 or 1 cards, return it
-			// otherwise, divide the deck into two subdecks
-			// sort the subdecks using mergeSort
-			// merge the subdecks
-			// return the result
-		}
 	}
 
-	public class Pile {
-		private ArrayList<Card> cards;
+	public Deck almostMergeSort() {
+		// divide the deck into two subdecks
+		// sort the subdecks using selectionSort
+		// merge the subdecks, return the result
+	}
 
-		public Pile() {
-			this.cards = new ArrayList<Card>();
-		}
+	public Deck mergeSort() {
+		// if the deck has 0 or 1 cards, return it
+		// otherwise, divide the deck into two subdecks
+		// sort the subdecks using mergeSort
+		// merge the subdecks
+		// return the result
+	}
+}
 
-		public Card popCard() {
-			return this.cards.remove(0);
-		}
+public class Pile {
+	private ArrayList<Card> cards;
 
-		public void addCard(Card card) {
+	public Pile() {
+		this.cards = new ArrayList<Card>();
+	}
+
+	public Card popCard() {
+		return this.cards.remove(0);
+	}
+
+	public void addCard(Card card) {
+		this.cards.add(card);
+	}
+
+	public boolean isEmpty() {
+		return this.cards.isEmpty();
+	}
+
+	public void addDeck(Deck deck) {
+		for (Card card : deck.getCards()) {
 			this.cards.add(card);
 		}
-
-		public boolean isEmpty() {
-			return this.cards.isEmpty();
-		}
-
-		public void addDeck(Deck deck) {
-			for (Card card : deck.getCards()) {
-				this.cards.add(card);
-			}
-		}
+	}
 
 	}
 
