@@ -247,7 +247,170 @@ public class CrazyEights_01 {
 		}
 	}
 
+	public class CardCollection {
+		private String label;
+		private ArrayList<Card> cards;
+
+		public CardCollection(String label) {
+			this.label = label;
+			this.cards = new ArrayList<Card>();
+		}
+
+		public void addCard(Card card) {
+			cards.add(card);
+		}
+
+		public Card popCard(int i) {
+			return cards.remove(i);
+		}
+
+		public Card popCard() {
+			int i = cards.size() - 1;
+			return popCard(i);
+		}
+
+		public boolean isEmpty() {
+			return cards.isEmpty();
+		}
+
+		public int size() {
+			return cards.size();
+		}
+
+		public Card getCard(int i) {
+			return cards.get(i);
+		}
+
+		public Card lastCard() {
+			int i = cards.size() - 1;
+			return cards.get(i);
+		}
+
+		public void swapCards(int i, int j) {
+			Card temp = cards.get(i);
+			cards.set(i, cards.get(j));
+			cards.set(j, temp);
+		}
+
+		public void shuffle() {
+			Random random = new Random();
+			for (int i = cards.size() - 1; i > 0; i--) {
+				int j = random.nextInt(i + 1);
+				swapCards(i, j);
+			}
+		}
+
+		public void deal(CardCollection that, int n) {
+			for (int i = 0; i < n; i++) {
+				Card card = popCard();
+				that.addCard(card);
+			}
+		}
+
+		public void dealAll(CardCollection that) {
+			int n = cards.size();
+			deal(that, n);
+		}
+	}
+
+	public class Deck extends CardCollection {
+		public Deck(String label) {
+			super(label);
+			for (int suit = 0; suit <= 3; suit++) {
+				for (int rank = 1; rank <= 13; rank++) {
+					addCard(new Card(rank, suit));
+				}
+			}
+		}
+	}
+
+	public class Hand extends CardCollection {
+		public Hand(String label) {
+			super(label);
+		}
+
+		public void display() {
+			System.out.println(getLabel() + ": ");
+			for (int i = 0; i < size(); i++) {
+				System.out.println(getCard(i));
+			}
+			System.out.println();
+		}
+	}
+
+	public class Player {
+		private String name;
+		private Hand hand;
+
+		public Player(String name) {
+		this.name = name;
+		this.hand = new Hand(name);
+
+		public Card play(Eights eights, Card prev) {
+			Card card = searchForMatch(prev);
+			if (card == null) {
+				card = drawForMatch(eights, prev);
+			}
+			return card;
+		}
+
+		public Card searchForMatch(Card prev) {
+			for (int i = 0; i < hand.size(); i++) {
+				Card card = hand.getCard(i);
+				if (cardMatches(card, prev)) {
+					return hand.popCard(i);
+				}
+			}
+			return null;
+		}
+
+		public Card drawForMatch(Eights eights, Card prev) {
+			while (true) {
+				Card card = eights.drawCard();
+				System.out.println(name + " draws " + card);
+				if (cardMatches(card, prev)) {
+					return card;
+				}
+				hand.addCard(card);
+			}
+		}
+
+		public static boolean cardMatches(Card card1, Card card2) {
+			return card1.getSuit() == card2.getSuit() || card1.getRank() == card2.getRank() || card1.getRank() == 8;
+		}
+	}
+
+	public class Eights {
+		private Player one;
+		private Player two;
+		private Hand drawPile;
+		private Hand discardPile;
+		private Scanner in;
+
+		public boolean isDone() {
+			return one.getHand().isEmpty() || two.getHand().isEmpty();
+		}
+
+		public void reshuffle() {
+			Card prev = discardPile.popCard();
+			discardPile.dealAll(drawPile);
+			discardPile.addCard(prev);
+			drawPile.shuffle();
+		}
+
+	}
+
 	public static void main(String[] args) {
-		
+		Deck deck = new Deck("Deck");
+		deck.shuffle();
+		Hand hand = new Hand("Hand");
+		deck.deal(hand, 5);
+		hand.display();
+		Hand drawPile = new Hand("Draw Pile");
+		deck.dealAll(drawPile);
+		System.out.printf("Draw Pile has %d cards.\n");
+
+		Hand hand = new Hand("Hand");
+		deck.deal(hand, 5);
 	}
 }
