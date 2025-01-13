@@ -10,10 +10,6 @@ public class CrazyEightsGame {
 	private Hand discardPile;
 	private boolean isGameOver = false;
 
-	public ArrayList<Player> getPlayers() {
-		return players;
-	}
-
 	public CrazyEightsGame() {
 		this.players = new ArrayList<>();
 		this.players.add(new Player("Alice", Player.PlayerStrategy.STRATEGIC));
@@ -23,7 +19,7 @@ public class CrazyEightsGame {
 	}
 
 	private void initGame() {
-		Deck deck = new Deck("Deck");
+		Deck deck = new Deck();
 		deck.shuffle();
 
 		for (Player player : players) {
@@ -31,7 +27,7 @@ public class CrazyEightsGame {
 		}
 
 		discardPile = new Hand("Discards");
-		deck.deal(discardPile, 1);
+		discardPile.addCard(deck.drawCard());
 
 		drawPile = new Hand("Draw pile");
 		deck.dealAll(drawPile);
@@ -75,17 +71,20 @@ public class CrazyEightsGame {
 	}
 
 	public void playGame() {
-	    while (!isDone() && !isGameOver) {
-	        Player currentPlayer = players.get(currentPlayerIndex);
-	        Card prevCard = discardPile.lastCard();
-	        Card playedCard = currentPlayer.play(this, prevCard);
-	        discardPile.addCard(playedCard);
-	        System.out.println(currentPlayer.getName() + " plays " + playedCard);
-	        
-	        currentPlayer.displayScore();
+		while (!isDone() && !isGameOver) {
+			Player currentPlayer = players.get(currentPlayerIndex);
+			Card prevCard = discardPile.lastCard();
+			Card playedCard = currentPlayer.play(this, prevCard);
+			discardPile.addCard(playedCard);
+			System.out.println(currentPlayer.getName() + " plays " + playedCard);
 
-	        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-	    }
+			currentPlayer.displayScore();
+
+			currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+		}
 	}
 
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
 }

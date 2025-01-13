@@ -2,42 +2,44 @@ package chapter14exercises;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class Deck {
-	private CardCollection cards;
-	private Random rand;
+	private ArrayList<Card> cards;
 
-	public Deck(String label) {
-        this.cards = new CardCollection(label);
-        this.rand = new Random(System.currentTimeMillis());
-        for (int suit = 0; suit < 4; suit++) {
-            for (int rank = 1; rank <= 13; rank++) {
-                cards.addCard(new CrazyEightsCard(rank, suit));
-            }
-        }
-        shuffle(); 
-    }
+	public Deck() {
+		cards = new ArrayList<>();
+		for (int suit = 0; suit < 4; suit++) {
+			for (int rank = 1; rank <= 13; rank++) {
+				cards.add(new CrazyEightsCard(rank, suit));
+			}
+		}
+		shuffle();
+	}
 
-    public void shuffle() {
-        ArrayList<Card> cardsList = cards.getCards();
-        Collections.shuffle(cardsList, rand);
-    }
+	public void shuffle() {
+		Collections.shuffle(cards);
+	}
 
-    public void deal(CardCollection hand, int numCards) {
-        for (int i = 0; i < numCards; i++) {
-            hand.addCard(cards.popCard(0));
-        }
-    }
-
-	public void dealAll(CardCollection hand) {
-		while (cards.size() > 0) {
-			hand.addCard(cards.popCard(0));
+	public void deal(CardCollection hand, int numCards) {
+		for (int i = 0; i < numCards; i++) {
+			hand.addCard(cards.remove(0));
 		}
 	}
 
-	@Override
-	public String toString() {
-		return cards.toString();
+	public void dealAll(CardCollection hand) {
+		while (!cards.isEmpty()) {
+			hand.addCard(cards.remove(0));
+		}
+	}
+
+	public Card drawCard() {
+		if (!cards.isEmpty()) {
+			return cards.remove(0);
+		}
+		return null;
+	}
+
+	public int size() {
+		return cards.size();
 	}
 }
