@@ -30,8 +30,10 @@ public class CardCollection {
 	}
 
 	public Card popCard() {
-		int i = cards.size() - 1;
-		return popCard(i);
+	    if (cards.isEmpty()) {
+	        throw new IllegalStateException("Cannot pop card, the collection is empty");
+	    }
+	    return cards.remove(cards.size() - 1);
 	}
 
 	public boolean isEmpty() {

@@ -29,7 +29,7 @@ public class Player {
 	public Card searchForMatch(Card prev) {
 		for (int i = 0; i < hand.size(); i++) {
 			Card card = hand.getCard(i);
-			if (cardMatches(card, prev)) {
+			if (card instanceof EightsCard && ((EightsCard) card).matches(prev)) {
 				return hand.popCard(i);
 			}
 		}
@@ -40,28 +40,19 @@ public class Player {
 		while (true) {
 			Card card = eights.drawCard();
 			System.out.println(name + " draws " + card);
-			if (cardMatches(card, prev)) {
+			if (card instanceof EightsCard && ((EightsCard) card).matches(prev)) {
 				return card;
 			}
 			hand.addCard(card);
 		}
 	}
 
-	public static boolean cardMatches(Card card1, Card card2) {
-		return card1.getSuit() == card2.getSuit() || card1.getRank() == card2.getRank() || card1.getRank() == 8;
-	}
-
 	public int score() {
 		int sum = 0;
 		for (int i = 0; i < hand.size(); i++) {
 			Card card = hand.getCard(i);
-			int rank = card.getRank();
-			if (rank == 8) {
-				sum -= 20;
-			} else if (rank > 10) {
-				sum -= 10;
-			} else {
-				sum -= rank;
+			if (card instanceof EightsCard) {
+				sum += ((EightsCard) card).scoreCard();
 			}
 		}
 		return sum;
@@ -74,5 +65,4 @@ public class Player {
 	public void displayScore() {
 		System.out.println(name + " has " + score() + " points");
 	}
-
 }
