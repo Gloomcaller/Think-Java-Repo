@@ -29,4 +29,34 @@ public class GridCanvas extends Canvas {
 	public void paint(Graphics g) {
 		draw(g);
 	}
+
+	public void update(Graphics g) {
+		draw(g);
+	}
+
+	public int numRows() {
+		return array.length;
+	}
+
+	public int numCols() {
+		return array[0].length;
+	}
+
+	public Cell getCell(int r, int c) {
+		return array[r][c];
+	}
+
+	public void turnOn(int r, int c) {
+		array[r][c].turnOn();
+	}
+
+	public int test(int r, int c) {
+		try {
+			if (array[r][c].isOn()) {
+				return 1;
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+		}
+		return 0;
+	}
 }
