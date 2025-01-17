@@ -1,4 +1,4 @@
-package chapter16sections;
+package chapter16exercises;
 
 import java.awt.Color;
 import java.awt.Graphics;
